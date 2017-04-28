@@ -1,0 +1,3 @@
+rootProject.name = 'craveit'
+
+include ':app'
