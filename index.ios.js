@@ -21,11 +21,16 @@ import {
 var Form = t.form.Form;
 
 // define the check-in form
-var CheckinForm = t.struct({
-  "Current Location": t.String,  
-  "Where to?": t.String, 
-  "For how long? (in minutes)": t.Number,           
-});
+var CUR_LOCATION = "Current Location";
+var WHERE_TO = "Where to?";
+var HOW_LONG = "For how long? (in minutes)";
+
+var basicForm = {}
+basicForm[CUR_LOCATION] = t.String;
+basicForm[WHERE_TO] = t.String;
+basicForm[HOW_LONG] = t.Number;
+
+var CheckinForm = t.struct(basicForm);
 
 var options = {}; // optional rendering options (see documentation)
 
@@ -45,6 +50,30 @@ const firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
 const styles = require('./styles/styles.js');
 
 export default class craveit extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onPress = this.onPress.bind(this);
+    this.itemsRef = firebaseApp.database().ref();
+  }
+
+  onPress() {
+    var value = this.refs.form.getValue();
+    if (value) { 
+      console.log(value);
+
+      this.itemsRef.push({
+        "deliverer_id": 0,
+        "start_time": new Date().getTime() / 1000, // time stored in seconds
+        "expire_time": value[HOW_LONG] * 60, // time stored in seconds
+        "from_name": value[CUR_LOCATION],
+        "from_coordinates": 0,
+        "to_name": value[WHERE_TO],
+        "to_coordinates": 0
+      });
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
