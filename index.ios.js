@@ -14,6 +14,8 @@ import {
   StackNavigator
 } from 'react-navigation';
 
+import CheckinSuccess from './checkin/CheckinSuccess';
+
 // import style info
 const styles = require('./styles/styles.js');
 
@@ -33,16 +35,22 @@ const firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
 var Form = t.form.Form;
 
 // define the check-in form
-var CheckinForm = t.struct({
-  "Current Location": t.String,  
-  "Where to?": t.String, 
-  "For how long? (in minutes)": t.Number,           
-});
+var CUR_LOCATION = "Current Location";
+var WHERE_TO = "Where to?";
+var HOW_LONG = "For how long? (in minutes)";
 
-var options = {}; // optional rendering options (see documentation)
+var basicForm = {}
+basicForm[CUR_LOCATION] = t.String;
+basicForm[WHERE_TO] = t.String;
+basicForm[HOW_LONG] = t.Number;
+
+var CheckinForm = t.struct(basicForm);
+
+var options = {}; // optional rendering options
 
 /** check-in form page **/
 export default class CheckinMain extends Component {
+
   static navigationOptions = {
     title: 'Check In',
   };
@@ -57,17 +65,19 @@ export default class CheckinMain extends Component {
     var value = this.refs.form.getValue();
     if (value) { 
       console.log(value);
-      console.log(this.itemsRef);
 
       this.itemsRef.push({
         "deliverer_id": 0,
         "start_time": new Date().getTime() / 1000, // time stored in seconds
-        "expire_time": value["For how long?"] * 60, // time stored in seconds
-        "from_name": value["Current Location"],
+        "expire_time": value[HOW_LONG] * 60, // time stored in seconds
+        "from_name": value[CUR_LOCATION],
         "from_coordinates": 0,
-        "to_name": value["Where to?"],
+        "to_name": value[WHERE_TO],
         "to_coordinates": 0
       });
+
+      const { navigate } = this.props.navigation;
+      navigate('CheckinSuccess');
     }
   }
 
@@ -90,6 +100,7 @@ export default class CheckinMain extends Component {
 
 const SimpleApp = StackNavigator({
   Home: { screen: CheckinMain },
+  CheckinSuccess: {screen: CheckinSuccess }
 });
 
 

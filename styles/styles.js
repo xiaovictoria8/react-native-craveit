@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'center',
     justifyContent: 'center'
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
   }
 });
 
