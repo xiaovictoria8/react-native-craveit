@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+
+  // these settings are for buttons
   buttonText: {
     fontSize: 18,
     color: 'white',
@@ -28,10 +30,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center'
   },
+
+  // these settings are generally for text
   headerText: {
     fontSize: 18,
     fontWeight: 'bold',
-  }
+  },
+
+  // these settings are for the navigation bar
+  icon: {
+    width: 26,
+    height: 26,
+  },
 });
 
 module.exports = styles

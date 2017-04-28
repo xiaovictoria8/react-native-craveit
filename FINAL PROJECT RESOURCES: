@@ -1,0 +1,48 @@
+FINAL PROJECT RESOURCES:
+
+	- lists:
+		- http://rationalappdev.com/react-native-list-app-complete-how-to-guide/#list-component
+
+	- Navigation:
+		- https://reactnavigation.org/docs/intro/nesting
+
+	- React Native:
+		- http://facebook.github.io/react-native/releases/0.25/docs/tutorial.html
+
+	- Firebase n react:
+		- https://firebase.googleblog.com/2016/01/the-beginners-guide-to-react-native-and_84.html
+
+	- forms n things:
+		- https://github.com/gcanti/tcomb-form-native
+
+	- stuff to complete:
+		- one "check in" page for deliverers to enter in delivery info
+			- use google places API to come up with list of places
+
+		- one "view requests page" that lists all requests that are currently active
+			- requests can click on items to show detailed info and send a request
+
+		- one "activities" where deliverers can see all requests pending delivery
+
+		- database with firebase, stores
+			- transactions
+				- deliverer id
+				- time
+				- from coordinates
+				- from name
+				- to coordinates
+				- from name
+				- list of pending requests
+					- requester id
+					- time
+					- from name
+					- to name
+					- order details
+				- list of accepted requests
+					- like pending requests, but also:
+					- charge
+					- is complete?
+			- pending requests
+			- users
+				- current checkins
+				- current requests

@@ -1,53 +1,107 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import t from 'tcomb-form-native';
+import * as firebase from "firebase";
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  Image,
+  TouchableHighlight,
+  View,
+  Dimensions
 } from 'react-native';
+import {
+  StackNavigator
+} from 'react-navigation';
 
-export default class craveit extends Component {
+import CheckinSuccess from './checkin/CheckinSuccess';
+
+// import style info
+const styles = require('./styles/styles.js');
+
+// initialize firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDKnG_JYCOB-Zgz2jT4ATJkQ_C0mjLP52g",
+  authDomain: "craveit-28f41.firebaseapp.com",
+  databaseURL: "https://craveit-28f41.firebaseio.com",
+  projectId: "craveit-28f41",
+  storageBucket: "craveit-28f41.appspot.com",
+  messagingSenderId: "1186416101"
+};
+
+const firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
+
+// set up delivery check-in form
+var Form = t.form.Form;
+
+// define the check-in form
+var CUR_LOCATION = "Current Location";
+var WHERE_TO = "Where to?";
+var HOW_LONG = "For how long? (in minutes)";
+
+var basicForm = {}
+basicForm[CUR_LOCATION] = t.String;
+basicForm[WHERE_TO] = t.String;
+basicForm[HOW_LONG] = t.Number;
+
+var CheckinForm = t.struct(basicForm);
+
+var options = {}; // optional rendering options
+
+/** check-in form page **/
+export default class CheckinMain extends Component {
+
+  static navigationOptions = {
+    title: 'Check In',
+  };
+
+  constructor(props) {
+    super(props);
+    this.onPress = this.onPress.bind(this);
+    this.itemsRef = firebaseApp.database().ref();
+  }
+
+  onPress() {
+    var value = this.refs.form.getValue();
+    if (value) { 
+      console.log(value);
+
+      this.itemsRef.push({
+        "deliverer_id": 0,
+        "start_time": new Date().getTime() / 1000, // time stored in seconds
+        "expire_time": value[HOW_LONG] * 60, // time stored in seconds
+        "from_name": value[CUR_LOCATION],
+        "from_coordinates": 0,
+        "to_name": value[WHERE_TO],
+        "to_coordinates": 0
+      });
+
+      const { navigate } = this.props.navigation;
+      navigate('CheckinSuccess');
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <Form
+          ref="form"
+          type={CheckinForm}
+          options={options}
+        />
+        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Broadcast</Text>
+        </TouchableHighlight>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+
+const SimpleApp = StackNavigator({
+  Home: { screen: CheckinMain },
+  CheckinSuccess: {screen: CheckinSuccess }
 });
 
-AppRegistry.registerComponent('craveit', () => craveit);
+
+AppRegistry.registerComponent('craveit', () => SimpleApp);
