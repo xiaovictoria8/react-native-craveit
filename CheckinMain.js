@@ -15,7 +15,7 @@ import {
 } from 'react-navigation';
 
 // import style info
-const styles = require('./styles/styles.js');
+const styles = require('../styles/styles.js');
 
 // initialize firebase
 const firebaseConfig = {
@@ -41,10 +41,9 @@ var CheckinForm = t.struct({
 
 var options = {}; // optional rendering options (see documentation)
 
-/** check-in form page **/
-export default class CheckinMain extends Component {
+class CheckinMain extends Component {
   static navigationOptions = {
-    title: 'Check In',
+    title: 'Check in',
   };
 
   constructor(props) {
@@ -57,15 +56,14 @@ export default class CheckinMain extends Component {
     var value = this.refs.form.getValue();
     if (value) { 
       console.log(value);
-      console.log(this.itemsRef);
 
       this.itemsRef.push({
         "deliverer_id": 0,
         "start_time": new Date().getTime() / 1000, // time stored in seconds
-        "expire_time": value["For how long?"] * 60, // time stored in seconds
-        "from_name": value["Current Location"],
+        "expire_time": value[HOW_LONG] * 60, // time stored in seconds
+        "from_name": value[CUR_LOCATION],
         "from_coordinates": 0,
-        "to_name": value["Where to?"],
+        "to_name": value[WHERE_TO],
         "to_coordinates": 0
       });
     }
@@ -85,12 +83,5 @@ export default class CheckinMain extends Component {
       </View>
     );
   }
+
 }
-
-
-const SimpleApp = StackNavigator({
-  Home: { screen: CheckinMain },
-});
-
-
-AppRegistry.registerComponent('craveit', () => SimpleApp);
