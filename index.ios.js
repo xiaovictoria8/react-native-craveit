@@ -109,7 +109,7 @@ export default class CheckinFormView extends Component {
 
   render() {
     return (
-      <View style={styles.form}>
+      <View style={styles.container}>
         <Form
           ref="form"
           type={checkinForm}
