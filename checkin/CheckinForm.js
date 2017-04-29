@@ -9,37 +9,9 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {
-  TabNavigator,
-  StackNavigator
-} from 'react-navigation';
-
-// import other pages of the app
-import CraverHub from './request/CraverHub';
-import DelivererActivityListView from './activity/DelivererActivityListView';
-import CheckinListView from './request/CheckinListView';
-
-import RequestSuccess from './request/RequestSuccess';
-import CheckinSuccess from './checkin/CheckinSuccess';
-
-import RequestDetail from './activity/RequestDetail';
-import LoginView from './login/LoginView';
 
 // import style info
-const styles = require('./styles/styles.js');
-
-// initialize firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDKnG_JYCOB-Zgz2jT4ATJkQ_C0mjLP52g",
-  authDomain: "craveit-28f41.firebaseapp.com",
-  databaseURL: "https://craveit-28f41.firebaseio.com",
-  projectId: "craveit-28f41",
-  storageBucket: "craveit-28f41.appspot.com",
-  messagingSenderId: "1186416101"
-};
-
-global.firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
-// global.userKey = "-Kis8QdjuS7lnqrbhVn6";
+const styles = require('../styles/styles.js');
 
 // set up delivery check-in form
 var Form = t.form.Form;
@@ -59,7 +31,7 @@ var checkinForm = t.struct(basicForm);
 var options = {}; // optional rendering options
 
 // icon for navigation bar
-var navIcon = require("./chats-icon.png");
+var navIcon = require("../chats-icon.png");
 
 /** check-in form page **/
 export default class CheckinFormView extends Component {
@@ -79,7 +51,6 @@ export default class CheckinFormView extends Component {
   constructor(props) {
     super(props);
     this.onPress = this.onPress.bind(this);
-    console.log("global.userKey: " + global.userKey);
   }
 
   onPress() {
@@ -87,7 +58,7 @@ export default class CheckinFormView extends Component {
     if (value) { 
       console.log(value);
 
-      var newRef = firebaseApp.database().ref("checkins").push({
+      var newRef = global.firebaseApp.database().ref("checkins").push({
         "deliverer_id": global.userKey,
         "start_time": new Date().getTime(), // time stored in milliseconds
         "expire_time": value[HOW_LONG] * 60 * 1000, // time stored in milliseconds
@@ -97,7 +68,7 @@ export default class CheckinFormView extends Component {
         "to_coordinates": 0
       });
 
-      firebaseApp.database().ref("users/" + global.userKey + "/checkins").push({
+      global.firebaseApp.database().ref("users/" + global.userKey + "/checkins").push({
         "checkin_key": newRef.key,
       });
 
@@ -108,7 +79,7 @@ export default class CheckinFormView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.form}>
         <Form
           ref="form"
           type={checkinForm}
@@ -121,29 +92,3 @@ export default class CheckinFormView extends Component {
     );
   }
 }
-
-const MainTabNavigator = TabNavigator({
-  "Craver Hub": {screen: CraverHub},
-  "Activity": {screen: DelivererActivityListView},
-  "Check In": { screen: CheckinFormView },
-});
-
-const craveit = StackNavigator({
-  MainTabNavigator: {screen: MainTabNavigator,
-          navigationOptions: ({navigation}) => ({
-            left: null,
-          }),
-        },
-  CheckinSuccess: {screen: CheckinSuccess },
-  CheckinListView: {screen: CheckinListView },
-  RequestSuccess: {screen: RequestSuccess },
-  RequestDetail: {screen: RequestDetail },
-  LoginView: {screen: LoginView,
-               navigationOptions: ({navigation}) => ({
-                header: null,
-              }),
-            },
-});
-
-
-AppRegistry.registerComponent('craveit', () => craveit);

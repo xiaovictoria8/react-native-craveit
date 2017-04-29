@@ -36,24 +36,35 @@ export default class CraverHub extends Component {
   constructor() {
     super();
 
-    // prepare firebase items
-    global.firebaseApp.database().ref("checkins").on('value', (snapshot)=>{
-      var checkinItems = [];
-      snapshot.forEach((child)=>{
-        var childWithKey = child.val();
-        childWithKey['key'] = child.key;
-        checkinItems.push(childWithKey);
-      });
-      this.setState({
-        dataSource: ds.cloneWithRows(checkinItems),
-      })
-    })
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     // prepare list of CheckinRows
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows([]),
     };
+  }
+
+  componentDidMount() {
+    console.log("CraveHub userKey: " + global.userKey);
+    if (global.userKey === null || global.userKey === undefined) {
+      const { navigate } = this.props.navigation;
+      navigate('LoginView');
+    }
+
+    else {
+      // prepare firebase items
+      global.firebaseApp.database().ref("checkins").on('value', (snapshot)=>{
+        var checkinItems = [];
+        snapshot.forEach((child)=>{
+          var childWithKey = child.val();
+          childWithKey['key'] = child.key;
+          checkinItems.push(childWithKey);
+        });
+        this.setState({
+          dataSource: ds.cloneWithRows(checkinItems),
+        });
+      });
+    }
   }
 
   // renders a CheckinRow as each row

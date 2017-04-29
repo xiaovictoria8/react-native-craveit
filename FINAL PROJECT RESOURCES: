@@ -13,6 +13,9 @@ FINAL PROJECT RESOURCES:
 		- https://firebase.googleblog.com/2016/01/the-beginners-guide-to-react-native-and_84.html
 		- https://firebase.google.com/docs/database/web/read-and-write
 
+		- authentication with firebase:
+			- https://www.sitepoint.com/authentication-in-react-native-with-firebase/
+
 	- forms n things:
 		- https://github.com/gcanti/tcomb-form-native
 

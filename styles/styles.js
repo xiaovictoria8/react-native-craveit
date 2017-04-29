@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#F5FCFF',
+  },
+
   // these settings are for ListViews
   row: {
     flexDirection: 'row',
