@@ -37,18 +37,21 @@ export default class CheckinListView extends Component {
 
   onPress() {
     const { params } = this.props.navigation.state;
-    var itemsRef = global.firebaseApp.database().ref(params.data.key + "/pendingRequests");
 
     var value = this.refs.form.getValue();
     if (value) { 
       console.log(value);
 
-      itemsRef.push({
+      var newRef = global.firebaseApp.database().ref("checkins/" + params.data.key + "/pendingRequests").push({
         "requester_id": 0,
         "request_time": new Date().getTime(),
         "order_desc": value[DESCRIBE_ORDER],
         "to_name": value[WHERE_TO],
         "to_coordinates": 0,
+      });
+
+      firebaseApp.database().ref("users/" + global.userKey + "/requests").push({
+        "requestKey": newRef.key,
       });
 
       const { navigate } = this.props.navigation;
