@@ -8,13 +8,16 @@ import {
   Image,
   TouchableHighlight,
   View,
-  Dimensions
 } from 'react-native';
 import {
+  TabNavigator,
   StackNavigator
 } from 'react-navigation';
 
+// import other pages of the app
 import CheckinSuccess from './checkin/CheckinSuccess';
+import CraverHub from './request/CraverHub';
+import CheckinListView from './request/CheckinListView';
 
 // import style info
 const styles = require('./styles/styles.js');
@@ -48,11 +51,22 @@ var CheckinForm = t.struct(basicForm);
 
 var options = {}; // optional rendering options
 
+// icon for navigation bar
+var navIcon = require("./chats-icon.png");
+
 /** check-in form page **/
-export default class CheckinMain extends Component {
+export default class CheckinFormView extends Component {
 
   static navigationOptions = {
     title: 'Check In',
+    tabBarLabel: 'Check In',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={navIcon}
+        style={[styles.icon, {tintColor: tintColor}]}
+      />
+    ),
   };
 
   constructor(props) {
@@ -97,11 +111,16 @@ export default class CheckinMain extends Component {
   }
 }
 
+const MainTabNavigator = TabNavigator({
+  "Craver Hub": {screen: CraverHub},
+  "Check In": { screen: CheckinFormView },
+});
 
-const SimpleApp = StackNavigator({
-  Home: { screen: CheckinMain },
-  CheckinSuccess: {screen: CheckinSuccess }
+const craveit = StackNavigator({
+  Home: { screen: MainTabNavigator },
+  CheckinSuccess: {screen: CheckinSuccess },
+  CheckinListView: {screen: CheckinListView },
 });
 
 
-AppRegistry.registerComponent('craveit', () => SimpleApp);
+AppRegistry.registerComponent('craveit', () => craveit);

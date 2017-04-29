@@ -125,7 +125,7 @@ export default class CraverHub extends Component {
         onPress={()=>{
           const { navigate } = this.props.navigation;
           console.log("hi");
-          navigate('CheckinListView');
+          navigate('CheckinListView', { data: data});
         }}
       />
     );

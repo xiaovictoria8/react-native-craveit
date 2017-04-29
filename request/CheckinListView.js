@@ -14,12 +14,10 @@ export default class CheckinListView extends Component {
   };
 
   render() {
+    const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.headerText}>Your request has been placed</Text>
-        <Text>1. You'll receive updates when someone sends you a request.</Text>
-        <Text>2. Chat with the request to decide whether to accept</Text>
-        <Text>3. Your broadcast remains active for up to 15 minutes</Text>
+        <Text style={styles.headerText}>{params.data.title}</Text>
       </View>
     );
   }
