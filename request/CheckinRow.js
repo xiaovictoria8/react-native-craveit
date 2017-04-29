@@ -15,8 +15,30 @@ const styles = require('../styles/styles.js');
 
 
 export default class CheckinRow extends Component {
+
+  constructor() {
+    super();
+
+    // prepare list of CheckinRows
+    this.state = {
+      delivererName: "",
+    };
+  }
+
+  componentDidMount({data} = this.props) {
+    const { deliverer_id } = data;
+
+    global.firebaseApp.database().ref("users/" + deliverer_id + "/name").on('value', (snapshot)=>{
+      data["deliverer_name"] = snapshot.val();
+      this.setState({
+        delivererName: snapshot.val(),
+      });
+    });
+
+  }
+
   render({data, onPress} = this.props) {
-    const { deliverer_id, from_name, to_name, expire_time, start_time } = data;
+    const { from_name, to_name, expire_time, start_time } = data;
     return (
     <View style={styles.row}>
       <TouchableOpacity 
@@ -24,6 +46,7 @@ export default class CheckinRow extends Component {
       	activeOpacity={0.7}
       >
         <Text style={styles.headerText}>From: {from_name} To: {to_name}</Text>
+        <Text>Deliverer: {this.state.delivererName}</Text>
         <Text>Expires in {Math.round((new Date(start_time + expire_time) - new Date()) / (1000 * 60))} minutes</Text>
         <Text></Text>
       </TouchableOpacity>

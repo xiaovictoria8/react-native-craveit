@@ -14,7 +14,9 @@ const styles = require('../styles/styles.js');
 // icon for navigation bar
 var navIcon = require("../chats-icon.png");
 
-/** Class displays a happy message saying that deliverer's check in succeeded! **/
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+/** Displays a list of requests for the logged in user's checkins **/
 export default class DelivererActivityListView extends Component {
   static navigationOptions = {
     title: 'Activity',
@@ -31,6 +33,13 @@ export default class DelivererActivityListView extends Component {
   constructor() {
     super();
 
+    // prepare list of CheckinRows
+    this.state = {
+      dataSource: ds.cloneWithRows([]),
+    };
+  }
+
+  componentDidMount() {
     // prepare firebase items
 
     // look at all the checkins for the logged in user
@@ -55,12 +64,6 @@ export default class DelivererActivityListView extends Component {
         });
       });
     })
-
-    // prepare list of CheckinRows
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([]),
-    };
   }
 
   // renders a CheckinRow as each row

@@ -18,7 +18,9 @@ export default class RequestDetail extends Component {
     return (
       <View style={styles.container}>
       <Text style={styles.headerText}>From: {params.data.from_name}</Text>
-      <Text style={styles.headerText}>To: {params.data.to_name}{"\n"}</Text>
+      <Text style={styles.headerText}>To: {params.data.to_name + "\n"}</Text>
+
+      <Text>Requester: {params.data.requester_name + "\n"}</Text>
 
       <Text>Order Details: </Text>
       <Text>{params.data.order_desc}{"\n"}</Text>

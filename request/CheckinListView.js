@@ -63,9 +63,10 @@ export default class CheckinListView extends Component {
   render() {
     const { params } = this.props.navigation.state;
     return (
-      <View style={styles.form}>
+      <View style={styles.container}>
       <Text style={styles.headerText}>From {params.data.from_name}</Text>
-      <Text style={styles.headerText}>To {params.data.to_name}</Text>
+      <Text style={styles.headerText}>To {params.data.to_name + "\n"}</Text>
+      <Text>Deliverer: {params.data.deliverer_name}</Text>
       <Text></Text>
       <Text></Text>
         <Form

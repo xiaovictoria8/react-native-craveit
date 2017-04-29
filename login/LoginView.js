@@ -47,9 +47,9 @@ export default class LoginView extends Component {
 
         // login success!
         if(!error){
+          
           // set as user
-          global.userKey = newRef.key;
-          console.log("newRef.key: " + global.userKey);
+          global.userKey = userData["uid"];
 
           const { navigate } = this.props.navigation;
           navigate('MainTabNavigator');

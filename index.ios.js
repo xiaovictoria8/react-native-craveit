@@ -13,6 +13,7 @@ import {
   TabNavigator,
   StackNavigator
 } from 'react-navigation';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // import other pages of the app
 import CraverHub from './request/CraverHub';
@@ -108,7 +109,7 @@ export default class CheckinFormView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.form}>
         <Form
           ref="form"
           type={checkinForm}
@@ -131,7 +132,7 @@ const MainTabNavigator = TabNavigator({
 const craveit = StackNavigator({
   MainTabNavigator: {screen: MainTabNavigator,
           navigationOptions: ({navigation}) => ({
-            left: null,
+            headerLeft: null,
           }),
         },
   CheckinSuccess: {screen: CheckinSuccess },

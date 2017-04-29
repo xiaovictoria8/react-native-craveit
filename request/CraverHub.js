@@ -18,6 +18,7 @@ const styles = require('../styles/styles.js');
 // icon for navigation bar
 var navIcon = require("../chats-icon.png");
 
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 /** Displays a list of checked-in deliverers, so requesters can select one to request from. **/
 export default class CraverHub extends Component {
 
@@ -35,8 +36,6 @@ export default class CraverHub extends Component {
 
   constructor() {
     super();
-
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     // prepare list of CheckinRows
     this.state = {

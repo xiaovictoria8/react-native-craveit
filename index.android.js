@@ -13,12 +13,18 @@ import {
   TabNavigator,
   StackNavigator
 } from 'react-navigation';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // import other pages of the app
-import CheckinSuccess from './checkin/CheckinSuccess';
 import CraverHub from './request/CraverHub';
+import DelivererActivityListView from './activity/DelivererActivityListView';
 import CheckinListView from './request/CheckinListView';
+
 import RequestSuccess from './request/RequestSuccess';
+import CheckinSuccess from './checkin/CheckinSuccess';
+
+import RequestDetail from './activity/RequestDetail';
+import LoginView from './login/LoginView';
 
 // import style info
 const styles = require('./styles/styles.js');
@@ -34,6 +40,7 @@ const firebaseConfig = {
 };
 
 global.firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
+// global.userKey = "-Kis8QdjuS7lnqrbhVn6";
 
 // set up delivery check-in form
 var Form = t.form.Form;
@@ -73,7 +80,7 @@ export default class CheckinFormView extends Component {
   constructor(props) {
     super(props);
     this.onPress = this.onPress.bind(this);
-    this.itemsRef = firebaseApp.database().ref();
+    console.log("global.userKey: " + global.userKey);
   }
 
   onPress() {
@@ -81,14 +88,18 @@ export default class CheckinFormView extends Component {
     if (value) { 
       console.log(value);
 
-      this.itemsRef.push({
-        "deliverer_id": 0,
+      var newRef = firebaseApp.database().ref("checkins").push({
+        "deliverer_id": global.userKey,
         "start_time": new Date().getTime(), // time stored in milliseconds
         "expire_time": value[HOW_LONG] * 60 * 1000, // time stored in milliseconds
         "from_name": value[CUR_LOCATION],
         "from_coordinates": 0,
         "to_name": value[WHERE_TO],
         "to_coordinates": 0
+      });
+
+      firebaseApp.database().ref("users/" + global.userKey + "/checkins").push({
+        "checkin_key": newRef.key,
       });
 
       const { navigate } = this.props.navigation;
@@ -98,7 +109,7 @@ export default class CheckinFormView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.form}>
         <Form
           ref="form"
           type={checkinForm}
@@ -114,14 +125,25 @@ export default class CheckinFormView extends Component {
 
 const MainTabNavigator = TabNavigator({
   "Craver Hub": {screen: CraverHub},
+  "Activity": {screen: DelivererActivityListView},
   "Check In": { screen: CheckinFormView },
 });
 
 const craveit = StackNavigator({
-  Home: { screen: MainTabNavigator },
+  MainTabNavigator: {screen: MainTabNavigator,
+          navigationOptions: ({navigation}) => ({
+            headerLeft: null,
+          }),
+        },
   CheckinSuccess: {screen: CheckinSuccess },
   CheckinListView: {screen: CheckinListView },
   RequestSuccess: {screen: RequestSuccess },
+  RequestDetail: {screen: RequestDetail },
+  LoginView: {screen: LoginView,
+               navigationOptions: ({navigation}) => ({
+                header: null,
+              }),
+            },
 });
 
 
