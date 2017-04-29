@@ -70,7 +70,7 @@ export default class DelivererActivityListView extends Component {
         data={data}
         onPress={()=>{
           const { navigate } = this.props.navigation;
-          navigate('CheckinListView', { data: data});
+          navigate('RequestDetail', { data: data});
         }}
       />
     );

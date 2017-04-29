@@ -22,6 +22,8 @@ import CheckinListView from './request/CheckinListView';
 import RequestSuccess from './request/RequestSuccess';
 import CheckinSuccess from './checkin/CheckinSuccess';
 
+import RequestDetail from './activity/RequestDetail';
+
 // import style info
 const styles = require('./styles/styles.js');
 
@@ -129,6 +131,7 @@ const craveit = StackNavigator({
   CheckinSuccess: {screen: CheckinSuccess },
   CheckinListView: {screen: CheckinListView },
   RequestSuccess: {screen: RequestSuccess },
+  RequestDetail: {screen: RequestDetail },
 });
 
 
