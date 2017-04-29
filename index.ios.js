@@ -32,7 +32,7 @@ const firebaseConfig = {
   messagingSenderId: "1186416101"
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
+global.firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
 
 // set up delivery check-in form
 var Form = t.form.Form;
@@ -82,8 +82,8 @@ export default class CheckinFormView extends Component {
 
       this.itemsRef.push({
         "deliverer_id": 0,
-        "start_time": new Date().getTime() / 1000, // time stored in seconds
-        "expire_time": value[HOW_LONG] * 60, // time stored in seconds
+        "start_time": new Date().getTime(), // time stored in milliseconds
+        "expire_time": value[HOW_LONG] * 60 * 1000, // time stored in milliseconds
         "from_name": value[CUR_LOCATION],
         "from_coordinates": 0,
         "to_name": value[WHERE_TO],

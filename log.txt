@@ -1,0 +1,55 @@
+Scanning 566 folders for symlinks in /Users/jon-andmir/Documents/SCHOOL/2017aSpring/CIS197/craveit/node_modules (8ms)
+Apr 28 21:49:13 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1548 Connection has no connected handler
+Apr 28 21:49:15 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1549 Connection has no connected handler
+Apr 28 21:49:17 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1550 Connection has no connected handler
+Apr 28 21:49:19 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1551 Connection has no connected handler
+Apr 28 21:49:21 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1552 Connection has no connected handler
+Apr 28 21:49:23 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1553 Connection has no connected handler
+Apr 28 21:49:24 levyvlan502 CoreSimulatorBridge[6372] <Warning>: Pasteboard change listener callback port <NSMachPort: 0x7fdbbd50edc0> registered
+Apr 28 21:49:24 levyvlan502 pasted[6395] <Warning>: Bundle ID com.apple.CoreSimulator.CoreSimulatorBridge from team (null) is requesting item 0 of type public.utf8-plain-text from pasteboard named com.apple.UIKit.pboard.general with UUID ED8EA953-B869-441A-A213-95EA7F606329
+Apr 28 21:49:24 levyvlan502 pasted[6395] <Warning>: Loading item 0x7f83c6604f70 23A735F2-0F3E-4291-801D-418F9B2C50C8 type public.utf8-plain-text from URL file:///Users/jon-andmir/Library/Developer/CoreSimulator/Devices/E11CEEC6-DF2D-4F35-9EDD-2A23C9AC633E/data/Library/Caches/com.apple.Pasteboard/eb77e5f8f043896faf63b5041f0fbd121db984dd/8face18c9456acf0a820bb8fc41daae78ce87439
+Apr 28 21:49:24 levyvlan502 pasted[6395] <Warning>: ...item request completed. Error: (null)
+Apr 28 21:49:25 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1554 Connection has no connected handler
+Apr 28 21:49:25 levyvlan502 craveit[6457] <Notice>: Initializing <RCTBatchedBridge: 0x6080001ba860> (parent: <RCTBridge: 0x6080000da010>, executor: RCTJSCExecutor)
+Apr 28 21:49:26 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1556 Connection has no connected handler
+Apr 28 21:49:26 levyvlan502 craveit[6457] <Notice>: Running application craveit ({
+	    initialProps =     {
+	    };
+	    rootTag = 1;
+	})
+Apr 28 21:49:26 levyvlan502 craveit[6457] <Notice>: Running application "craveit" with appParams: {"rootTag":1,"initialProps":{}}. __DEV__ === true, development-level warning are ON, performance optimizations are OFF
+Apr 28 21:49:26 levyvlan502 craveit[6457] <Notice>: SocketRocket: In debug mode.  Allowing connection to any root cert
+--- last message repeated 1 time ---
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: child: 0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:27 levyvlan502 craveit[6457] <Notice>: checkinItems final: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Apr 28 21:49:28 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1563 Connection has no connected handler
+Apr 28 21:49:30 levyvlan502 craveit[6457] <Error>: [] nw_connection_get_connected_socket_block_invoke 1564 Connection has no connected handler

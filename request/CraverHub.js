@@ -109,11 +109,24 @@ export default class CraverHub extends Component {
   constructor() {
     super();
 
+    // prepare firebase items
+    this.itemsRef = global.firebaseApp.database().ref();
+
+    this.itemsRef.on('value', (snapshot)=>{
+      var checkinItems = [];
+      snapshot.forEach((child)=>{
+        checkinItems.push(child.val());
+      });
+      console.log("CraverHub itemsRef: " + checkinItems);
+      this.setState({
+        dataSource: ds.cloneWithRows(checkinItems),
+      })
+    })
+
     // prepare list of CheckinRows
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(demoData),
-      isRefreshing: false,
+      dataSource: ds.cloneWithRows([]),
     };
   }
 
@@ -131,26 +144,13 @@ export default class CraverHub extends Component {
     );
   }
 
-  // function refreshes checkin data upon swiping
-  fetchData = () => {
-    this.setState({ isRefreshing: true });
-    this.setState({ 
-      dataSource: this.state.dataSource.cloneWithRows(demoData),
-      isRefreshing:false,
-    });
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
-          refreshControl={
-            <RefreshControl 
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.fetchData} />
-          }
+          enableEmptySections={true}
         />
       </View>
     );
