@@ -15,10 +15,12 @@ import {
 } from 'react-navigation';
 
 // import other pages of the app
-import CheckinSuccess from './checkin/CheckinSuccess';
 import CraverHub from './request/CraverHub';
+import CheckinsActivityListView from './activity/CheckinsActivityListView';
 import CheckinListView from './request/CheckinListView';
+
 import RequestSuccess from './request/RequestSuccess';
+import CheckinSuccess from './checkin/CheckinSuccess';
 
 // import style info
 const styles = require('./styles/styles.js');
@@ -118,6 +120,7 @@ export default class CheckinFormView extends Component {
 
 const MainTabNavigator = TabNavigator({
   "Craver Hub": {screen: CraverHub},
+  "Activity": {screen: CheckinsActivityListView},
   "Check In": { screen: CheckinFormView },
 });
 

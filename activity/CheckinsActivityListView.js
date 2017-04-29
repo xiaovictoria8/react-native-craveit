@@ -3,14 +3,10 @@ import {
   Text,
   View,
   Image,
-  ListView,
-  RefreshControl
+  ListView
 } from 'react-native';
-import {
-  StackNavigator,
-} from 'react-navigation';
 
-import CheckinRow from './CheckinRow';
+import CheckinRow from '../request/CheckinRow';
 
 // import style info
 const styles = require('../styles/styles.js');
@@ -18,12 +14,11 @@ const styles = require('../styles/styles.js');
 // icon for navigation bar
 var navIcon = require("../chats-icon.png");
 
-/** Displays a list of checked-in deliverers, so requesters can select one to request from. **/
-export default class CraverHub extends Component {
-
+/** Class displays a happy message saying that deliverer's check in succeeded! **/
+export default class CheckinsActivityListView extends Component {
   static navigationOptions = {
-    title: 'Craver Hub',
-    tabBarLabel: 'Craver Hub',
+    title: 'Activity',
+    tabBarLabel: 'Activity',
     // Note: By default the icon is only shown on iOS. Search the showIcon option below.
     tabBarIcon: ({ tintColor }) => (
       <Image
@@ -37,16 +32,23 @@ export default class CraverHub extends Component {
     super();
 
     // prepare firebase items
-    global.firebaseApp.database().ref("checkins").on('value', (snapshot)=>{
+    global.firebaseApp.database().ref("users/" + global.userKey + "/checkins").on('value', (snapshot)=>{
       var checkinItems = [];
+      console.log("snapshot: " + JSON.stringify(snapshot));
       snapshot.forEach((child)=>{
-        var childWithKey = child.val();
-        childWithKey['key'] = child.key;
-        checkinItems.push(childWithKey);
+        console.log("child: " + JSON.stringify(child));
+        var checkinKey = child.val().checkinKey;
+        console.log("checkinKey: " + checkinKey);
+        global.firebaseApp.database().ref("checkins/" + checkinKey).once('value').then((snap2)=>{
+          var itemWithKey = snap2.val();
+          itemWithKey['key'] = checkinKey;
+          console.log("itemWithKey: " + JSON.stringify(itemWithKey));
+          checkinItems.push(itemWithKey);
+          this.setState({
+            dataSource: ds.cloneWithRows(checkinItems),
+          });
+        });
       });
-      this.setState({
-        dataSource: ds.cloneWithRows(checkinItems),
-      })
     })
 
     // prepare list of CheckinRows
