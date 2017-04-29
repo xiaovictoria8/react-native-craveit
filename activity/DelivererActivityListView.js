@@ -6,7 +6,7 @@ import {
   ListView
 } from 'react-native';
 
-import CheckinRow from '../request/CheckinRow';
+import RequestRow from './RequestRow';
 
 // import style info
 const styles = require('../styles/styles.js');
@@ -15,7 +15,7 @@ const styles = require('../styles/styles.js');
 var navIcon = require("../chats-icon.png");
 
 /** Class displays a happy message saying that deliverer's check in succeeded! **/
-export default class CheckinsActivityListView extends Component {
+export default class DelivererActivityListView extends Component {
   static navigationOptions = {
     title: 'Activity',
     tabBarLabel: 'Activity',
@@ -32,20 +32,25 @@ export default class CheckinsActivityListView extends Component {
     super();
 
     // prepare firebase items
-    global.firebaseApp.database().ref("users/" + global.userKey + "/checkins").on('value', (snapshot)=>{
-      var checkinItems = [];
-      console.log("snapshot: " + JSON.stringify(snapshot));
-      snapshot.forEach((child)=>{
-        console.log("child: " + JSON.stringify(child));
-        var checkinKey = child.val().checkinKey;
-        console.log("checkinKey: " + checkinKey);
-        global.firebaseApp.database().ref("checkins/" + checkinKey).once('value').then((snap2)=>{
-          var itemWithKey = snap2.val();
-          itemWithKey['key'] = checkinKey;
-          console.log("itemWithKey: " + JSON.stringify(itemWithKey));
-          checkinItems.push(itemWithKey);
-          this.setState({
-            dataSource: ds.cloneWithRows(checkinItems),
+
+    // look at all the checkins for the logged in user
+    global.firebaseApp.database().ref("users/" + global.userKey + "/checkins").on('value', (checkinSnap)=>{
+      var requestItems = [];
+      checkinSnap.forEach((child)=>{
+        var checkinKey = child.val()["checkin_key"];
+        console.log("checkinKey: " + JSON.stringify(checkinKey));
+       
+        // for each checkin, look at all corresponding requests
+        global.firebaseApp.database().ref("checkins/" + checkinKey + "/pending_requests").on('value', (requestSnap)=>{
+          console.log("requestSnap: " + JSON.stringify(requestSnap.val()));
+          requestSnap.forEach((child)=>{
+            var requestWithFromInfo = child.val();
+            requestWithFromInfo['key'] = child.key;
+            console.log("request: " + JSON.stringify(requestWithFromInfo));
+            requestItems.push(requestWithFromInfo);
+            this.setState({
+              dataSource: ds.cloneWithRows(requestItems),
+            });
           });
         });
       });
@@ -61,7 +66,7 @@ export default class CheckinsActivityListView extends Component {
   // renders a CheckinRow as each row
   renderRow = (data) => {
     return (
-      <CheckinRow
+      <RequestRow
         data={data}
         onPress={()=>{
           const { navigate } = this.props.navigation;

@@ -16,7 +16,7 @@ import {
 
 // import other pages of the app
 import CraverHub from './request/CraverHub';
-import CheckinsActivityListView from './activity/CheckinsActivityListView';
+import DelivererActivityListView from './activity/DelivererActivityListView';
 import CheckinListView from './request/CheckinListView';
 
 import RequestSuccess from './request/RequestSuccess';
@@ -94,7 +94,7 @@ export default class CheckinFormView extends Component {
       });
 
       firebaseApp.database().ref("users/" + global.userKey + "/checkins").push({
-        "checkinKey": newRef.key,
+        "checkin_key": newRef.key,
       });
 
       const { navigate } = this.props.navigation;
@@ -120,7 +120,7 @@ export default class CheckinFormView extends Component {
 
 const MainTabNavigator = TabNavigator({
   "Craver Hub": {screen: CraverHub},
-  "Activity": {screen: CheckinsActivityListView},
+  "Activity": {screen: DelivererActivityListView},
   "Check In": { screen: CheckinFormView },
 });
 

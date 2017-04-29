@@ -14,9 +14,9 @@ const screen = Dimensions.get('window');
 const styles = require('../styles/styles.js');
 
 
-export default class CheckinRow extends Component {
+export default class RequestRow extends Component {
   render({data, onPress} = this.props) {
-    const { deliverer_id, from_name, to_name, expire_time, start_time } = data;
+    const { order_desc, request_time, requester_id, to_name, from_name } = data;
     return (
     <View style={styles.row}>
       <TouchableOpacity 
@@ -24,7 +24,8 @@ export default class CheckinRow extends Component {
       	activeOpacity={0.7}
       >
         <Text style={styles.headerText}>From: {from_name} To: {to_name}</Text>
-        <Text>Expires in {Math.round((new Date(start_time + expire_time) - new Date()) / (1000 * 60))} minutes</Text>
+        <Text>{order_desc}</Text>
+        <Text>Requested {Math.round((new Date() - new Date(request_time)) / (1000 * 60))} minutes ago</Text>
         <Text></Text>
       </TouchableOpacity>
     </View>

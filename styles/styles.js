@@ -13,6 +13,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 
+  // these settings are for ListViews
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+
   // these settings are for buttons
   buttonText: {
     fontSize: 18,
