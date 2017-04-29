@@ -18,6 +18,7 @@ import {
 import CheckinSuccess from './checkin/CheckinSuccess';
 import CraverHub from './request/CraverHub';
 import CheckinListView from './request/CheckinListView';
+import RequestSuccess from './request/RequestSuccess';
 
 // import style info
 const styles = require('./styles/styles.js');
@@ -47,7 +48,7 @@ basicForm[CUR_LOCATION] = t.String;
 basicForm[WHERE_TO] = t.String;
 basicForm[HOW_LONG] = t.Number;
 
-var CheckinForm = t.struct(basicForm);
+var checkinForm = t.struct(basicForm);
 
 var options = {}; // optional rendering options
 
@@ -100,7 +101,7 @@ export default class CheckinFormView extends Component {
       <View style={styles.container}>
         <Form
           ref="form"
-          type={CheckinForm}
+          type={checkinForm}
           options={options}
         />
         <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
@@ -120,6 +121,7 @@ const craveit = StackNavigator({
   Home: { screen: MainTabNavigator },
   CheckinSuccess: {screen: CheckinSuccess },
   CheckinListView: {screen: CheckinListView },
+  RequestSuccess: {screen: RequestSuccess },
 });
 
 

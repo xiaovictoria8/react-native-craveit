@@ -18,6 +18,7 @@ import {
 import CheckinSuccess from './checkin/CheckinSuccess';
 import CraverHub from './request/CraverHub';
 import CheckinListView from './request/CheckinListView';
+import RequestSuccess from './request/RequestSuccess';
 
 // import style info
 const styles = require('./styles/styles.js');
@@ -32,7 +33,7 @@ const firebaseConfig = {
   messagingSenderId: "1186416101"
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
+global.firebaseApp = firebase.initializeApp(firebaseConfig, "craveit");
 
 // set up delivery check-in form
 var Form = t.form.Form;
@@ -47,7 +48,7 @@ basicForm[CUR_LOCATION] = t.String;
 basicForm[WHERE_TO] = t.String;
 basicForm[HOW_LONG] = t.Number;
 
-var CheckinForm = t.struct(basicForm);
+var checkinForm = t.struct(basicForm);
 
 var options = {}; // optional rendering options
 
@@ -82,8 +83,8 @@ export default class CheckinFormView extends Component {
 
       this.itemsRef.push({
         "deliverer_id": 0,
-        "start_time": new Date().getTime() / 1000, // time stored in seconds
-        "expire_time": value[HOW_LONG] * 60, // time stored in seconds
+        "start_time": new Date().getTime(), // time stored in milliseconds
+        "expire_time": value[HOW_LONG] * 60 * 1000, // time stored in milliseconds
         "from_name": value[CUR_LOCATION],
         "from_coordinates": 0,
         "to_name": value[WHERE_TO],
@@ -100,7 +101,7 @@ export default class CheckinFormView extends Component {
       <View style={styles.container}>
         <Form
           ref="form"
-          type={CheckinForm}
+          type={checkinForm}
           options={options}
         />
         <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
@@ -120,6 +121,7 @@ const craveit = StackNavigator({
   Home: { screen: MainTabNavigator },
   CheckinSuccess: {screen: CheckinSuccess },
   CheckinListView: {screen: CheckinListView },
+  RequestSuccess: {screen: RequestSuccess },
 });
 
 

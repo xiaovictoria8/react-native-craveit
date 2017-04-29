@@ -115,9 +115,10 @@ export default class CraverHub extends Component {
     this.itemsRef.on('value', (snapshot)=>{
       var checkinItems = [];
       snapshot.forEach((child)=>{
-        checkinItems.push(child.val());
+        var childWithKey = child.val();
+        childWithKey['key'] = child.key;
+        checkinItems.push(childWithKey);
       });
-      console.log("CraverHub itemsRef: " + checkinItems);
       this.setState({
         dataSource: ds.cloneWithRows(checkinItems),
       })
